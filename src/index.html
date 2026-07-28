@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AGLABS-pe - خلاقیت - نوآوری - ذهن باز</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- ASCII Particle Canvas Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <main class="container">
+      <!-- Hero/Introduction Section -->
+      <section class="hero">
+        <div class="logo-container">
+          <div class="logo">ت</div>
+        </div>
+        <h1 class="company-name">AGLABS</h1>
+        <p class="company-tagline">آزمایشگاه های تکنولوژی برای ذهن های خلاق</p>
+        <p class="company-description">
+          تحقیق | طراحی | توسعه | آموزش | بازنگری | تکرار
+        </p>
+      </section>
+
+      <!-- Services Section -->
+      <section class="services-section">
+        <h2 class="section-title">داستان ما</h2>
+
+        <div class="services-grid">
+          <div class="service-card" data-service="academy">
+            <div class="service-icon">🧠</div>
+            <h3 class="service-title">آکادمی برنامه نویسی</h3>
+            <p class="service-preview">آموزش تعامعی برنامه سازی هوش مصنوعی.</p>
+            <button class="read-more-btn">بیشتر بخوانید</button>
+          </div>
+          <div class="service-card" data-service="startup">
+            <div class="service-icon">🚀</div>
+            <h3 class="service-title">استارتاپ</h3>
+            <p class="service-preview">تبدیل خروجی به محصول نهایی و واقعی</p>
+            <button class="read-more-btn">بیشتر بخوانید</button>
+          </div>
+          <!-- Service Card 1 -->
+          <div class="service-card" data-service="freelance">
+            <div class="service-icon">💼</div>
+            <h3 class="service-title">فریلنس</h3>
+            <p class="service-preview">
+              راه حل های خلاقانه و پیشرفته در کمترین زمان ممکن.
+            </p>
+            <button class="read-more-btn">بیشتر بخوانید</button>
+          </div>
+
+          <!-- Service Card 2 -->
+          <div class="service-card" data-service="research">
+            <div class="service-icon">🔬</div>
+            <h3 class="service-title">تحقیق و توسعه</h3>
+            <p class="service-preview">
+              تحقیق و توسعه برای ایجاد محتوای تازه یا همگام سازی با تکنولوژی روز
+              دنیا به ویژه در هوش مصنوعی.
+            </p>
+            <button class="read-more-btn">بیشتر بخوانید</button>
+          </div>
+
+          <!-- Service Card 3 -->
+          <div class="service-card" data-service="consulting">
+            <div class="service-icon">💡</div>
+            <h3 class="service-title">مشاوره تکنولوژی</h3>
+            <p class="service-preview">
+              راهکارهای هوشمند برای چالش‌های فنی شما
+            </p>
+            <button class="read-more-btn">بیشتر بخوانید</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Expandable Details Section -->
+      <section class="details-section hidden" id="detailsSection">
+        <button class="close-details" id="closeDetails">← بازگشت</button>
+        <div class="detail-content" id="detailContent">
+          <!-- Content will be injected here -->
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>تماس با ما</h4>
+          <div class="footer-links">
+            <a href="mailto:aglabs.pe@gmail.com" class="footer-link">
+              <span>✉️</span> ایمیل
+            </a>
+            <a
+              href="https://t.me/ag_labs_pe"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+            >
+              <span>📱</span> تلگرام
+            </a>
+            <!-- <a
+              href="https://t.me/your_chat_id"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+            >
+              <span>💬</span> گروه تلگرام
+            </a> -->
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>فرم تماس</h4>
+          <a
+            href="https://forms.gle/p2DgNMaLrsMu2bsR8"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-form-btn"
+          >
+            ارسال پیام
+          </a>
+        </div>
+
+        <div class="footer-section">
+          <p class="copyright">©AGLABS ۱۴۰۵ تمام حقوق محفوظ است.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
