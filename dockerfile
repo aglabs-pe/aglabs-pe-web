@@ -9,14 +9,23 @@ RUN npm run build
 
 
 FROM nginx:alpine
+# RUN addgroup -S appgroup \
+#   && adduser -S appuser -G appgroup \
+RUN mkdir -p /var/cache/nginx/client_temp \
+             /var/cache/nginx/proxy_temp \
+             /var/cache/nginx/fastcgi_temp \
+             /var/cache/nginx/uwsgi_temp \
+             /var/cache/nginx/scgi_temp \
+             /var/run \
+             /var/log/nginx \
+             /usr/share/nginx/html \
+  ; chown -R nginx:nginx /var/cache/nginx /var/run /var/log/nginx /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /build/www /usr/share/nginx/html
-# COPY src/m-star /usr/share/nginx/html/mstar
-
-# COPY --from=builder ./src/m-star /usr/share/nginx/html/mstar
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 7099
-
+CMD ["nginx", "-g", "daemon off;"]
 # Final stage
 # FROM node:20-alpine
 

@@ -1,36 +1,39 @@
-version: '3.8'
-
+# version: '3.8'
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: aglabs-pe-website
-    restart: unless-stopped
+    container_name: aglabs-pe-web
     ports:
-      - "127.0.0.1:7576:80"
-    # networks:
-    #   - aglabs-network
+      - "127.0.0.1:7099:7099"
     environment:
-      - TZ=UTC
-    # Resource limits
+      NODE_ENV: production
+      NPM_CONFIG_CACHE: /tmp/.npm
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    cap_add:
+      # - NET_BIND_SERVICE
+      - CHOWN
+      - SETGID
+      - SETUID
     deploy:
       resources:
         limits:
-          cpus: '1'
-          memory: 256M
+          cpus: "1"
+          memory: "256M"
         reservations:
-          cpus: '0.5'
-          memory: 128M
-    # Read-only root filesystem for security
-    read_only: true
-    tmpfs:
-      - /tmp
-      - /run
-    # Security options
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
-    cap_add:
-      - NET_BIND_SERVICE
+          cpus: "0.5"
+          memory: "128M"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:7099"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
