@@ -5,10 +5,12 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build src/index.html --dist-dir www "
+    "m-star": "parcel src/m-star/index.html",
+    "build": "parcel build src/index.html src/mstar.html --dist-dir /build/www"
   },
-  "dependencies": {},
   "devDependencies": {
-    "parcel": "^2.14.0"
+    "@parcel/packager-raw-url": "^2.16.4",
+    "@parcel/transformer-jsonld": "^2.16.4",
+    "parcel": "^2.16.4"
   }
 }

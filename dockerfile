@@ -1,42 +1,38 @@
-# Stage 1: Build
 FROM node:20-alpine AS builder
 
-WORKDIR /app
-
-# Copy package files
+WORKDIR /build
 COPY package*.json ./
+RUN npm ci  # Install ALL dependencies (including dev)
 
-# Install dependencies
-RUN npm ci
-
-# Copy source
-COPY src ./src
-
-# Build with Parcel
+COPY . .
 RUN npm run build
 
-# Stage 2: Serve
-FROM caddy:2.7-alpine
 
-# Install curl for health checks
-RUN apk add --no-cache curl
+FROM nginx:alpine
+COPY --from=builder /build/www /usr/share/nginx/html
+# COPY src/m-star /usr/share/nginx/html/mstar
 
-WORKDIR /app
+# COPY --from=builder ./src/m-star /usr/share/nginx/html/mstar
 
-# Copy built assets from builder
-COPY --from=builder /app/www ./www
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 7099
 
-# Copy Caddyfile for security headers and compression
-COPY Caddyfile ./
+# Final stage
+# FROM node:20-alpine
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:80/health || exit 1
+# WORKDIR /app
 
-# Non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
+# # Create non-root user
+# # RUN addgroup -g 1000 appuser && adduser -D -u 1000 -G appuser appuser
+# RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-EXPOSE 80
+# # Copy node_modules and built files from builder
+# COPY --from=builder --chown=appuser:appuser /build/node_modules ./node_modules
+# COPY --from=builder --chown=appuser:appuser /build/www ./www
 
-CMD ["caddy", "run", "--config", "/app/Caddyfile"]
+# USER appuser
+
+# EXPOSE 80
+
+# # Serve from www directory on port 80
+# CMD ["npx", "serve", "-l", "80", "-s", "www"]
